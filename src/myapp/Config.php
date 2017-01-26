@@ -18,5 +18,6 @@ class Config
     public static $dbName = "shop";
     public static $dbUser = "root";
     public static $dbPassword = "123456";
+    public static $dbCharset = "utf8";
 
 }

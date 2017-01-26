@@ -10,5 +10,12 @@ class Controller {
 	{
 		$this->view = new View();
 	}
+
+	public function redirect($path)
+    {
+        $host = 'http://'.$_SERVER['HTTP_HOST'].'/';
+        $url = $host.$path;
+        header('Location:'.$url);
+    }
 	
 }

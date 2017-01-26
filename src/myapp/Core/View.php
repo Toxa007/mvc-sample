@@ -17,10 +17,4 @@ class View
         $this->flashMessageClass = $class;
         $this->flashMessageText = $text;
     }
-
-    public static function makePath($path)
-    {
-        $cutstring = "/".Config::$projectFolder."/".Config::$webFolder;
-        return $cutstring.$path;
-    }
 }

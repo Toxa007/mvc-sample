@@ -6,7 +6,7 @@
     <title>Main page</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="/my/web/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap.css" rel="stylesheet">
 
 </head>
 <body style="padding-top: 20px">
@@ -72,7 +72,7 @@
         <?php include \myapp\Config::$viewDir.$contentView.".php"; ?>
     </div>
 </div>
-<script src="/my/web/js/jquery.js"></script>
-<script src="/my/web/js/bootstrap.js"></script>
+<script src="/assets/js/jquery.js"></script>
+<script src="/assets/js/bootstrap.js"></script>
 </body>
 </html>

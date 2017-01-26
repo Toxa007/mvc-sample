@@ -1,7 +1,5 @@
 <h2>Add product</h2>
 
-<?php var_dump($data['product']) ?>
-
 <div style="width: 400px">
     <form name="product" method="post">
         <div id="product">
@@ -17,7 +15,7 @@
                 <label for="product_description" class="required">Description</label>
                 <textarea id="product_description" name="product[description]" required="required" class="form-control"><?=$data['product']->getDescription() ?></textarea>
             </div>
-            <input type="hidden" name="id" value="<?=$data['product']->getId() ?>">
+            <input type="hidden" name="product[id]" value="<?=$data['product']->getId() ?>">
             <div><button type="submit" id="product_save" name="product[save]">Save</button></div>
         </div>
     </form>

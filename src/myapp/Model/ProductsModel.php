@@ -1,6 +1,7 @@
 <?php
 namespace myapp\Model;
 use myapp\Core\Model;
+use myapp\Entity\ProductMapper;
 use myapp\Entity\Product;
 
 class ProductsModel extends Model
@@ -8,7 +9,6 @@ class ProductsModel extends Model
     public function getProducts()
     {
         //$productsList = DB::findAll('products');
-
         $prod1 = new Product();
         $prod1->setName('prod1');
         $prod1->setPrice('222');
@@ -30,6 +30,8 @@ class ProductsModel extends Model
 
     public function findProduct($id)
     {
+        $mapper = new ProductMapper();
+
         $product = new Product();
         //DB::find('products', ['id' => $id]);
 
