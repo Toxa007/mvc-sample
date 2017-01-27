@@ -64,6 +64,17 @@ class ProductForm
     }
 
     //refactor to formBuilder/formCreateView with input_types, errors, templates, etc.
+    public function getFormErrorsHtml()
+    {
+        $errorMessage = "";
+        if (!empty($this->errors)) {
+            foreach ($this->errors as $error) {
+                $errorMessage .= $error['message']."<br>";
+            }
+        }
+        return $errorMessage;
+    }
+    
     public function getFormData()
     {
         return $this->data;

@@ -28,9 +28,7 @@
         </div>
     </nav>
     <div class="container">
-        <div class="alert alert-<?=$this->flashMessageClass ?>">
-            <?=$this->flashMessageText ?>
-        </div>
+        <?=$this->showFlash() ?>
         <?php include \MyApp\Config::$viewDir.$contentView; ?>
     </div>
 </div>

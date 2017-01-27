@@ -8,17 +8,6 @@
 </h2>
 
 <div style="width: 400px">
-
-    <?php
-        if(!empty($data['form_errors'])) {
-            echo '<div class="alert alert-danger">';
-            foreach ($data['form_errors'] as $error) {
-                echo $error['message'] . "<br>";
-            }
-            echo '</div>';
-        }
-    ?>
-
     <form name="product" method="post">
         <div id="product">
             <div class="form-group">

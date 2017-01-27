@@ -38,9 +38,13 @@ class ProductsController extends Controller
             );
             $this->redirect('products/list');
         }
-
+        if (!empty($form->getFormErrors())) {
+            $this->view->addFlash(
+                'danger',
+                $form->getFormErrorsHtml()
+            );
+        }
         $this->view->render('form_view.php', [
-            'form_errors' => $form->getFormErrors(),
             'form_data' => $form->getFormData(),
         ]);
     }
@@ -58,8 +62,13 @@ class ProductsController extends Controller
             );
             $this->redirect('products/list');
         }
+        if (!empty($form->getFormErrors())) {
+            $this->view->addFlash(
+                'danger',
+                $form->getFormErrorsHtml()
+            );
+        }
         $this->view->render('form_view.php', [
-            'form_errors' => $form->getFormErrors(),
             'form_data' => $form->getFormData(),
         ]);
     }
