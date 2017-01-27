@@ -1,6 +1,6 @@
 <?php
 require_once('../autoload.php');
 
-use myapp\Core\Route;
+use MyApp\Core\Route;
 
 Route::start();

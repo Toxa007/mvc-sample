@@ -1,10 +1,10 @@
 <?php
 
-namespace myapp\Entity;
+namespace MyApp\Entity;
 
 class Product
 {
-    private $id;
+    private $id = 0;
     private $name;
     private $price;
     private $description;
@@ -51,5 +51,15 @@ class Product
     public function getDescription()
     {
         return $this->description;
+    }
+
+    public function getValidator()
+    {
+        return [
+            'id' => ['name' => 'Integer', 'filter' => FILTER_VALIDATE_INT],
+            'name' => ['name' => 'String', 'filter' => FILTER_SANITIZE_STRING],
+            'price' => ['name' => 'Integer', 'filter' => FILTER_VALIDATE_INT],
+            'description' => ['name' => 'String', 'filter' => FILTER_SANITIZE_STRING],
+        ];
     }
 }

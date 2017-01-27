@@ -1,8 +1,8 @@
 <?php
 
-namespace myapp\Core;
+namespace MyApp\Core;
 
-use myapp\Config;
+use MyApp\Config;
 
 class Route
 {
@@ -27,22 +27,22 @@ class Route
         }
 
         //prefixes
-        $controllerName = $namespace."Controller\\".ucfirst($controllerName).'Controller';
+        $controllerName = $namespace . "Controller\\" . ucfirst($controllerName) . 'Controller';
         $actionName = 'action'.ucfirst($actionName);
 
         //create controller and run action
         if (class_exists($controllerName)) {
             $controller = new $controllerName;
-            if(method_exists($controller, $actionName)) {
+            if (method_exists($controller, $actionName)) {
                 $controller->$actionName($paramValue);
                 return;
             }
         }
         //no controller or action = 404
-        self::ErrorPage404();
+        self::pageNotFound();
     }
 
-    public static function ErrorPage404()
+    public static function pageNotFound()
     {
         $host = 'http://'.$_SERVER['HTTP_HOST'].'/';
         header('HTTP/1.1 404 Not Found');

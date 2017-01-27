@@ -1,9 +1,9 @@
 <?php
-namespace myapp;
+namespace MyApp;
 
 class Config
 {
-    public static $projectName = "myapp";
+    public static $projectName = "MyApp";
     public static $projectFolder ="my";
     public static $webFolder = "web";
     public static $viewFolder = "";
@@ -19,5 +19,4 @@ class Config
     public static $dbUser = "root";
     public static $dbPassword = "123456";
     public static $dbCharset = "utf8";
-
 }

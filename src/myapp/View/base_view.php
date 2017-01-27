@@ -69,7 +69,7 @@
         <div class="alert alert-<?=$this->flashMessageClass ?>">
             <?=$this->flashMessageText ?>
         </div>
-        <?php include \myapp\Config::$viewDir.$contentView.".php"; ?>
+        <?php include \MyApp\Config::$viewDir.$contentView.".php"; ?>
     </div>
 </div>
 <script src="/assets/js/jquery.js"></script>
