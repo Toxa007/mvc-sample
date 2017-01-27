@@ -1,6 +1,6 @@
 <?php
 
-//TODO: navbar (?), обработка исключений
+//TODO: обработка исключений
 
 namespace MyApp\Controller;
 
@@ -20,7 +20,7 @@ class ProductsController extends Controller
     public function actionList()
     {
         $products = $this->model->findAllProducts();
-        $this->view->render('list_view', [
+        $this->view->render('list_view.php', [
             'products' => $products
         ]);
     }
@@ -39,7 +39,7 @@ class ProductsController extends Controller
             $this->redirect('products/list');
         }
 
-        $this->view->render('form_view', [
+        $this->view->render('form_view.php', [
             'form_errors' => $form->getFormErrors(),
             'form_data' => $form->getFormData(),
         ]);
@@ -58,7 +58,7 @@ class ProductsController extends Controller
             );
             $this->redirect('products/list');
         }
-        $this->view->render('form_view', [
+        $this->view->render('form_view.php', [
             'form_errors' => $form->getFormErrors(),
             'form_data' => $form->getFormData(),
         ]);
