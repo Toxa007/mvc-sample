@@ -41,7 +41,7 @@ class ProductsController extends Controller
         if (!empty($form->getFormErrors())) {
             $this->view->addFlash(
                 'danger',
-                $form->getFormErrorsHtml(),
+                $form->getFormErrorsText(),
                 false
             );
         }

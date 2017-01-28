@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block pagename %}
-    {% if form_data.id > 0 %} Edit {% else %} Add {% endif %} product
+    {% if form_data.id > 0 %} Edit product (#{{ form_data.id }}) {% else %} Add product {% endif %}
 {% endblock %}
 
 {% block body %}

@@ -3,6 +3,7 @@
 namespace MyApp\Model;
 
 use MyApp\Entity\Product;
+use MyApp\Core\Request;
 
 class ProductForm
 {
@@ -41,8 +42,10 @@ class ProductForm
 
     public function handleRequest()
     {
-        if (!empty($_POST)) {
-            $this->data = $_POST['product'];
+        $request = new Request();
+        $data = $request->getData();
+        if (!empty($data)) {
+            $this->data = $data['product'];
             $this->validateFormData();
             if ($this->isValid()) {
                 $this->product->setAttributes($this->data);
