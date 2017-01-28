@@ -3,22 +3,33 @@
 namespace MyApp\Core;
 
 use MyApp\Config;
+use Twig_Loader_Filesystem;
+use Twig_Environment;
 
 class View
 {
-    private $templateView = "base_view.php"; //default template
+    private $twig;
     private $flashMessageText = "";
     private $flashMessageClass = ""; //success, info, warning, danger
-    private $path;
 
-    public function render($contentView, $data = null)
+    public function render($contentView, $data = [])
     {
-        include $this->path.$this->templateView;
+        if ($this->flashMessageClass != "" && $this->flashMessageText != "") {
+            $data['flash'] = [
+                'class' => $this->flashMessageClass,
+                'text' => $this->flashMessageText
+            ];
+        }
+        echo $this->twig->render($contentView, $data);
     }
 
     public function __construct()
     {
-        $this->path = Config::get('path')['viewDir'];
+        $path = Config::get('path');
+        $loader = new Twig_Loader_Filesystem($path['viewDir']);
+        $this->twig = new Twig_Environment($loader, array(
+            'cache' => false,
+        ));
         Session::init();
         $this->flashMessageClass = Session::get('flash_class');
         $this->flashMessageText = Session::get('flash_text');
@@ -35,20 +46,5 @@ class View
             $this->flashMessageClass = $class;
             $this->flashMessageText = $text;
         }
-    }
-
-    public function showFlash()
-    {
-        include $this->path."flash_message.php";
-    }
-
-    public function getFlashText()
-    {
-        return $this->flashMessageText;
-    }
-
-    public function getFlashClass()
-    {
-        return $this->flashMessageClass;
     }
 }

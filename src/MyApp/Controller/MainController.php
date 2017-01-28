@@ -8,6 +8,6 @@ class MainController extends Controller
 {
     public function actionIndex()
     {
-        $this->view->render('main_view.php');
+        $this->view->render('Main/main.html.twig');
     }
 }

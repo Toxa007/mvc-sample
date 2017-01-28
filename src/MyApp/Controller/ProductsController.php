@@ -1,6 +1,6 @@
 <?php
 
-//TODO: обработка исключений
+//TODO: обработка исключений, dao
 
 namespace MyApp\Controller;
 
@@ -20,7 +20,7 @@ class ProductsController extends Controller
     public function actionList()
     {
         $products = $this->model->findAllProducts();
-        $this->view->render('list_view.php', [
+        $this->view->render('Product/list.html.twig', [
             'products' => $products
         ]);
     }
@@ -45,7 +45,7 @@ class ProductsController extends Controller
                 false
             );
         }
-        $this->view->render('form_view.php', [
+        $this->view->render('Product/form.html.twig', [
             'form_data' => $form->getFormData(),
         ]);
     }
@@ -73,11 +73,11 @@ class ProductsController extends Controller
         if (!empty($form->getFormErrors())) {
             $this->view->addFlash(
                 'danger',
-                $form->getFormErrorsHtml(),
+                $form->getFormErrorsText(),
                 false
             );
         }
-        $this->view->render('form_view.php', [
+        $this->view->render('Product/form.html.twig', [
             'form_data' => $form->getFormData(),
         ]);
     }

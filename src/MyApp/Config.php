@@ -7,6 +7,7 @@ class Config
         'path' => [
             'projectNamespace' => "MyApp",
             'viewDir' => __DIR__ . '/View/',
+            'cacheDir' => __DIR__ . '/Cache/',
         ],
         'default' => [
             'controller' => "Main",
