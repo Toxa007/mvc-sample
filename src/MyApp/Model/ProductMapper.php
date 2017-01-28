@@ -12,31 +12,23 @@ class ProductMapper
 
     public function __construct()
     {
-        $dsn = "mysql:host=".Config::$dbHost.";dbname=".Config::$dbName.";charset=".Config::$dbCharset;
-        $opt = array(
+        $db = Config::get('db');
+        $dsn = "mysql:host=".$db['host'].";dbname=".$db['name'].";charset=".$db['charset'];
+        $opt = [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-        );
-        $db = new PDO($dsn, Config::$dbUser, Config::$dbPassword, $opt);
+        ];
+        $db = new PDO($dsn, $db['user'], $db['password'], $opt);
         $this->db = $db;
-    }
-
-    protected function fillProduct(Product &$product, $row)
-    {
-        $product->setId($row['id']);
-        $product->setName($row['name']);
-        $product->setPrice($row['price']);
-        $product->setDescription($row['description']);
     }
 
     public function findAllProducts()
     {
-        $data = $this->db->query('SELECT id, name, price, description FROM products')->fetchAll(PDO::FETCH_UNIQUE);
-        $products = array();
-        foreach ($data as $id => $row) {
+        $data = $this->db->query('SELECT id, name, price, description FROM products')->fetchAll();
+        $products = [];
+        foreach ($data as $row) {
             $product = new Product();
-            $row['id'] = $id;
-            $this->fillProduct($product, $row);
+            $product->setAttributes($row);
             $products[] = $product;
         }
         return $products;
@@ -48,40 +40,44 @@ class ProductMapper
         $stmt = $this->db->prepare('SELECT id, name, price, description FROM products WHERE id = ?');
         $stmt->execute([$id]);
         if ($row = $stmt->fetch(PDO::FETCH_LAZY)) {
-            $this->fillProduct($product, $row);
+            $product->setAttributes($row);
         }
         return $product;
     }
 
-    public function saveProduct(Product &$product)
+    private function bindParams(\PDOStatement $statement, $params)
+    {
+        foreach ($params as $key => $val) {
+            $statement->bindValue($key, $val);
+        }
+    }
+
+    public function saveProduct(Product $product)
     {
         if ($product->getId()) {
             $sql = "UPDATE products SET name = :name, price = :price, description = :description WHERE id = :id";
             $statement = $this->db->prepare($sql);
-            $name = $product->getName();
-            $price = $product->getPrice();
-            $desc = $product->getDescription();
-            $id = $product->getId();
-            $statement->bindParam("name", $name);
-            $statement->bindParam("price", $price);
-            $statement->bindParam("description", $desc);
-            $statement->bindParam("id", $id);
+            $this->bindParams($statement, [
+                'id' => $product->getId(),
+                'name' => $product->getName(),
+                'price' => $product->getPrice(),
+                'description' => $product->getDescription(),
+            ]);
             $statement->execute();
         } else {
             $sql = "INSERT INTO products (name, price, description) VALUES (:name, :price, :description)";
             $statement = $this->db->prepare($sql);
-            $name = $product->getName();
-            $price = $product->getPrice();
-            $desc = $product->getDescription();
-            $statement->bindParam("name", $name);
-            $statement->bindParam("price", $price);
-            $statement->bindParam("description", $desc);
+            $this->bindParams($statement, [
+                'name' => $product->getName(),
+                'price' => $product->getPrice(),
+                'description' => $product->getDescription(),
+            ]);
             $statement->execute();
             $product->setId($this->db->lastInsertId());
         }
     }
 
-    public function removeProduct(Product &$product)
+    public function removeProduct(Product $product)
     {
         $id = $product->getId();
         if ($id > 0) {

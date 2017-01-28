@@ -36,12 +36,13 @@ class ProductsController extends Controller
                 'success',
                 'Product #'.$product->getId().' added!'
             );
-            $this->redirect('products/list');
+            $this->redirect('/products/list');
         }
         if (!empty($form->getFormErrors())) {
             $this->view->addFlash(
                 'danger',
-                $form->getFormErrorsHtml()
+                $form->getFormErrorsHtml(),
+                false
             );
         }
         $this->view->render('form_view.php', [
@@ -52,6 +53,13 @@ class ProductsController extends Controller
     public function actionEdit($id)
     {
         $product = $this->model->findProduct($id);
+        if ($product->getId()!=$id) {
+            $this->view->addFlash(
+                'danger',
+                'Product #'.$id.' not found!'
+            );
+            $this->redirect('/products/list');
+        }
         $form = new ProductForm($product);
         $form->handleRequest();
         if ($form->isValid()) {
@@ -60,12 +68,13 @@ class ProductsController extends Controller
                 'success',
                 'Product #'.$id.' edited!'
             );
-            $this->redirect('products/list');
+            $this->redirect('/products/list');
         }
         if (!empty($form->getFormErrors())) {
             $this->view->addFlash(
                 'danger',
-                $form->getFormErrorsHtml()
+                $form->getFormErrorsHtml(),
+                false
             );
         }
         $this->view->render('form_view.php', [
@@ -88,6 +97,6 @@ class ProductsController extends Controller
                 'Product #'.$id.' not found!'
             );
         }
-        $this->redirect('products/list');
+        $this->redirect('/products/list');
     }
 }

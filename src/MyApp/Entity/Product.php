@@ -53,6 +53,14 @@ class Product
         return $this->description;
     }
 
+    public function setAttributes($data)
+    {
+        $this->id = $data['id'];
+        $this->name = $data['name'];
+        $this->price = $data['price'];
+        $this->description = $data['description'];
+    }
+
     public function getValidator()
     {
         return [

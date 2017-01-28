@@ -7,11 +7,11 @@ use MyApp\Entity\Product;
 class ProductForm
 {
     private $product;
-    private $data = array();
+    private $data = [];
     private $valid = false;
-    private $errors = array();
+    private $errors = [];
 
-    public function __construct(Product &$product)
+    public function __construct(Product $product)
     {
         $this->product = $product;
         $this->data['id'] = $product->getId();
@@ -45,10 +45,7 @@ class ProductForm
             $this->data = $_POST['product'];
             $this->validateFormData();
             if ($this->isValid()) {
-                $this->product->setId($this->data['id']);
-                $this->product->setName($this->data['name']);
-                $this->product->setPrice($this->data['price']);
-                $this->product->setDescription($this->data['description']);
+                $this->product->setAttributes($this->data);
             }
         }
     }

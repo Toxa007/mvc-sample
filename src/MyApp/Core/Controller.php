@@ -12,10 +12,8 @@ class Controller
         $this->view = new View();
     }
 
-    public function redirect($path)
+    public function redirect($url, $statusCode=302)
     {
-        $host = 'http://'.$_SERVER['HTTP_HOST'].'/';
-        $url = $host.$path;
-        header('Location:'.$url);
+        header('Location: '.$url, true, $statusCode);
     }
 }

@@ -9,9 +9,12 @@ class Route
     public static function start()
     {
         //default
-        $namespace = "\\".Config::$projectName."\\";
-        $controllerName = Config::$defaultController;
-        $actionName = Config::$defaultAction;
+        $path = Config::get('path');
+        $default = Config::get('default');
+        
+        $namespace = '\\'.$path['projectNamespace'].'\\';
+        $controllerName = $default['controller'];
+        $actionName = $default['action'];
 
         //get routes
         $routes = explode('/', $_SERVER['REQUEST_URI']);
@@ -27,8 +30,8 @@ class Route
         }
 
         //prefixes
-        $controllerName = $namespace . "Controller\\" . ucfirst($controllerName) . 'Controller';
-        $actionName = 'action'.ucfirst($actionName);
+        $controllerName = $namespace . 'Controller\\' . ucfirst($controllerName) . 'Controller';
+        $actionName = 'action' . ucfirst($actionName);
 
         //create controller and run action
         if (class_exists($controllerName)) {
@@ -44,9 +47,8 @@ class Route
 
     public static function pageNotFound()
     {
-        $host = 'http://'.$_SERVER['HTTP_HOST'].'/';
         header('HTTP/1.1 404 Not Found');
         header("Status: 404 Not Found");
-        header('Location:'.$host.'404');
+        header('Location:/404');
     }
 }

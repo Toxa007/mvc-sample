@@ -29,7 +29,7 @@
     </nav>
     <div class="container">
         <?=$this->showFlash() ?>
-        <?php include \MyApp\Config::$viewDir.$contentView; ?>
+        <?php include $this->path.$contentView; ?>
     </div>
 </div>
 </body>
